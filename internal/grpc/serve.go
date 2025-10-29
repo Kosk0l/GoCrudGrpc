@@ -8,8 +8,22 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-// Будущая структура для обработки
-type Response interface {}
+// структура для обработки запросов
+type Response interface {
+	Create(
+		ctx context.Context,
+		userID int64,
+		text string,
+	) (*grpc.MessageResponse, error)
+	Get(
+		ctx context.Context,
+		id int64,
+	) (*grpc.MessageResponse, error)
+	Delete(
+		ctx context.Context,
+		id int64,
+	) error
+}
 
 // Структура, наследующая интерфейс со всеми методами - хендлерами
 type ServerAPI struct {
