@@ -19,7 +19,8 @@ func main() {
 
 	log.Println("Server is working")
 	pb.RegisterGRPCServer(s, &grpcServer.ServerAPI{}) // реализация АПИ // регистрация сервера
-	if err := s.Serve(lis); err != nil {
+
+	if err := s.Serve(lis); err != nil { 
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
