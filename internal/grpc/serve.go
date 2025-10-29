@@ -62,6 +62,24 @@ func (s *ServerAPI) CreateMessage(ctx context.Context, req *grpc.PostMessageRequ
 
 	//..
 
+	return &grpc.MessageResponse {
+        TextID: req.TextID,
+        Text:   "",
+        Status: "",
+    }, nil
+}
+
+func (s *ServerAPI) UpdateMessage(ctx context.Context, req *grpc.UpdateMessageRequest) (*grpc.MessageResponse, error) {
+	if req.GetText() == "" {
+		return nil, status.Error(codes.InvalidArgument, "Bad text")
+	}
+
+	if req.GetTextID() == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Bad text id")
+	}
+
+	//..
+
 	return &grpc.MessageResponse{
         TextID: req.TextID,
         Text:   "",
