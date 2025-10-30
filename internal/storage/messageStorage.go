@@ -57,7 +57,7 @@ func(p *Postgres) Get(ctx context.Context, textID int64) (*grpc.MessageResponse,
 }
 
 // Удаляем сообщение из БД
-func(p *Postgres) Delete(ctx context.Context, req grpc.DeleteMessageRequest) error {
+func(p *Postgres) Delete(ctx context.Context, req *grpc.DeleteMessageRequest) error {
 	sql := `DELETE FROM messages WHERE text_id = $1`
 
 	cmd, err := p.pool.Exec(ctx, sql, req.TextID)
