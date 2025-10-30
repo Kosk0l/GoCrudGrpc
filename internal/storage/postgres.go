@@ -17,9 +17,9 @@ type Postgres struct {
 
 // Создание подключения/соединения к БД
 func NewPostgres(ctx context.Context, dsn string) (*Postgres, error) {
-	config, err := pgxpool.ParseConfig(dsn)
+	config, err := pgxpool.ParseConfig(dsn) 
 	if err != nil {
-		return nil, fmt.Errorf("Failed parse Config Postgres pgxpool", err)
+		return nil, fmt.Errorf("failed parse Config Postgres pgxpool: %v", err)
 	}
 
 	// настройка таймаута
@@ -29,7 +29,7 @@ func NewPostgres(ctx context.Context, dsn string) (*Postgres, error) {
 	// Подключение
 	pool, err := pgxpool.NewWithConfig(ctx, config)
 	if err != nil {
-		return nil, fmt.Errorf("failed config connection", err)
+		return nil, fmt.Errorf("failed config connection: %v", err)
 	}
 
 	return &Postgres{
@@ -41,3 +41,10 @@ func NewPostgres(ctx context.Context, dsn string) (*Postgres, error) {
 func (p *Postgres) Close() {
 	p.pool.Close()
 }
+
+// CREATE TABLE messages (
+//     text_id BIGINT PRIMARY KEY,
+//     user_id BIGINT NOT NULL,
+//     text TEXT NOT NULL,
+//     status TEXT NOT NULL DEFAULT 'ok',
+// );
