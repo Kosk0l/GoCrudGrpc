@@ -2,11 +2,13 @@ package storage
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// 
+//
 type Postgres struct {
 	pool *pgxpool.Pool // пул соединений
 	// Управляет несколькими TCP-соединениями к базе, 
@@ -15,8 +17,24 @@ type Postgres struct {
 
 // Создание подключения/соединения к БД
 func NewPostgres(ctx context.Context, dsn string) (*Postgres, error) {
+	config, err := pgxpool.ParseConfig(dsn)
+	if err != nil {
+		return nil, fmt.Errorf("Failed parse Config Postgres pgxpool", err)
+	}
 
-	return &Postgres{}, nil
+	// настройка таймаута
+	config.MaxConns = 10 // Максимальное количество открытых соединений
+	config.MaxConnLifetime = time.Hour // Максимальное время жизни соединения
+
+	// Подключение
+	pool, err := pgxpool.NewWithConfig(ctx, config)
+	if err != nil {
+		return nil, fmt.Errorf("failed config connection", err)
+	}
+
+	return &Postgres{
+		pool: pool,
+	}, nil
 }
 
 // Закрытие соединения
