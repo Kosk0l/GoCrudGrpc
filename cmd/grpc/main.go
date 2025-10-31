@@ -26,7 +26,8 @@ func main() {
 	defer cancel()
 
 	// Ключ подключения
-	dsn := "postgres://user:password@localhost:5432/dbname"
+	dsn := "host=localhost user=postgresCrud password=qwerty dbname=postgresCrud port=5433 sslmode=disable"
+	// host=localhost user=postgres password=password dbname=postgres port=port sslmode=disable
 
 	// Создание подключение
 	db, err := storage.NewPostgres(ctx, dsn)
