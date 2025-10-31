@@ -44,3 +44,8 @@ func (p *Postgres) Close() {
 	p.pool.Close()
 }
 
+// CREATE TABLE messages (
+//     text_id BIGINT PRIMARY KEY,
+//     user_id BIGINT NOT NULL,
+//     text TEXT NOT NULL,
+// );
