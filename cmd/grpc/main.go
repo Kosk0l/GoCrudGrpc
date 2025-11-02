@@ -26,7 +26,7 @@ func main() {
 	defer cancel()
 
 	// Ключ подключения
-	dsn := "host=localhost user=postgresCrud password=qwerty dbname=postgresCrud port=5433 sslmode=disable"
+	dsn := "postgres://postgresCrud:qwerty@localhost:5433/postgresCrud?sslmode=disable"
 	// host=localhost user=postgres password=password dbname=postgres port=port sslmode=disable
 
 	// Создание подключение
@@ -41,7 +41,7 @@ func main() {
 	//======================================================================//
 
 	// Иннициализация слушателя порта
-	lis, err := net.Listen("tcp", ":44044") 
+	lis, err := net.Listen("tcp", ":44045") 
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
